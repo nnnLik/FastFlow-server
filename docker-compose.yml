@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+
+  fastflow:
+    build: ./
+    container_name: fastflow
+    volumes:
+      - .:/usr/src/app/
+    ports:
+      - 8080:8080
+    env_file:
+      - ./.env
+    depends_on:
+      - flowdb
+
+  flowdb:
+    image: postgres:14.6-alpine
+    container_name: flowdb
+    volumes:
+      - flowdb_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+    environment:
+      POSTGRES_PASSWORD: ${SQL_PASS}
+      ALEMBIC_CONFIG: /usr/src/app/config/alembic.ini
+
+volumes:
+  flowdb_data:
