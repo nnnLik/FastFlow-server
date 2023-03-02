@@ -4,13 +4,7 @@ from src.app.models.user import User
 
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
-from sqlalchemy import (
-    Column, 
-    Integer, 
-    DateTime,
-    ForeignKey,
-    Text
-    )
+from sqlalchemy import Column, Integer, DateTime, ForeignKey, Text
 
 
 class Message(Base):
@@ -18,8 +12,8 @@ class Message(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True, index=True, unique=True)
 
-    user = Column(Integer, ForeignKey('user.id'))
-    server_room = Column(Integer, ForeignKey('server_message_room.id'))
+    user = Column(Integer, ForeignKey("user.id"))
+    server_room = Column(Integer, ForeignKey("server_message_room.id"))
 
     content = Column(Text)
 
@@ -29,4 +23,4 @@ class Message(Base):
     rel_server_room = relationship("ServerMessageRoom", foreign_keys=[server_room])
 
     def __repr__(self):
-        return f'<Message name: {self.content}>'
+        return f"<Message name: {self.content}>"

@@ -6,11 +6,11 @@ from src.app.models.server import Server
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 from sqlalchemy import (
-    Column, 
-    Integer, 
+    Column,
+    Integer,
     DateTime,
     ForeignKey,
-    )
+)
 
 
 class ServerMembers(Base):
@@ -18,8 +18,8 @@ class ServerMembers(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True, index=True, unique=True)
 
-    server = Column(Integer, ForeignKey('server.id'))
-    user = Column(Integer, ForeignKey('user.id'))
+    server = Column(Integer, ForeignKey("server.id"))
+    user = Column(Integer, ForeignKey("user.id"))
 
     joined_at = Column(DateTime(timezone=True), server_default=func.now())
     left_at = Column(DateTime(timezone=True), nullable=True, default=None)
@@ -28,4 +28,4 @@ class ServerMembers(Base):
     rel_server = relationship("Server", foreign_keys=[server])
 
     def __repr__(self):
-        return f'<ServerMembers user: {self.user} ServerMember: {self.user}>'
+        return f"<ServerMembers user: {self.user} ServerMember: {self.user}>"
