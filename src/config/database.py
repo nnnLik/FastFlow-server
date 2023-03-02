@@ -13,7 +13,7 @@ from .settings import (
 
 
 SQLALCHEMY_DATABASE_URL = (
-    f"{SQL_ENGINE}+asyncpg://{SQL_USER}:{SQL_PASS}@{SQL_HOST}:{SQL_PORT}/{SQL_DB}"
+    f"{SQL_ENGINE}://{SQL_USER}:{SQL_PASS}@{SQL_HOST}:{SQL_PORT}/{SQL_DB}"
 )
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
