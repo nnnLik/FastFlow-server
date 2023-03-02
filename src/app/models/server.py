@@ -12,7 +12,7 @@ class Server(Base):
 
     server_name = Column(String(50), nullable=False)
 
-    created_by = Column(Integer, ForeignKey("user.id"))
+    created_by = Column(Integer, ForeignKey("ff_user.id"))
 
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now())

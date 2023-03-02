@@ -12,7 +12,7 @@ class Message(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True, index=True, unique=True)
 
-    user = Column(Integer, ForeignKey("user.id"))
+    user = Column(Integer, ForeignKey("ff_user.id"))
     server_room = Column(Integer, ForeignKey("server_message_room.id"))
 
     content = Column(Text)
