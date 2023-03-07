@@ -1,12 +1,17 @@
-FROM python:3.9-alpine
+FROM python:3.9-slim-buster
 
 WORKDIR /usr/src/app
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-RUN apk update \
-    && apk add postgresql-dev gcc python3-dev musl-dev
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        gcc \
+        musl-dev \
+        postgresql-client \
+        python3-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install --upgrade pip
 COPY ./requirements/requirements-dev.txt .
