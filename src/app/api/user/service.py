@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 from src.app.models.user import User
 
-from src.app.schemas.user_schema import UserCreate, UserUpdate
+from src.app.schemas.auth_schemas import LoginUserSchema, UserCreateSchema
 
 from src.config.security import Hash
 
@@ -37,22 +37,31 @@ def user_by_email(db: Session, email: str):
         return user
 
 
-def check_for_create_user(db: Session, user: User):
-    try:
-        user_by_username(db, username=user.username)
-    except HTTPException:
-        pass
-    else:
+def is_available_to_create(db: Session, user: User):
+    is_exist_by_username = db.query(User).filter(User.username == user.username).first()
+    is_exist_by_email = db.query(User).filter(User.email == user.email).first()
+
+    if is_exist_by_username is not None:
         raise HTTPException(status_code=400, detail="Username already registered")
-    try:
-        user_by_email(db, email=user.email)
-    except HTTPException:
-        pass
-    else:
+    elif is_exist_by_email is not None:
         raise HTTPException(status_code=400, detail="Email already registered")
+    else:
+        return True
 
 
-def create(db: Session, user: UserCreate):
+def is_available_to_login(db: Session, user: LoginUserSchema):
+    db_user = db.query(User).filter(User.email == user.email).first()
+
+    if not db_user:
+        raise HTTPException(status_code=400, detail="Invalid credentials")
+
+    if not Hash.verify(db_user.password, user.password):
+        raise HTTPException(status_code=400, detail="Invalid credentials")
+
+    return True
+
+
+def create(db: Session, user: UserCreateSchema):
     hashed_password = Hash.bcrypt(user.password)
     db_user = User(
         username=user.username,
