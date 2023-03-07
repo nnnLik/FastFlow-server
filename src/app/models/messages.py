@@ -8,12 +8,12 @@ from sqlalchemy import Column, Integer, DateTime, ForeignKey, Text
 
 
 class Message(Base):
-    __tablename__ = "message"
+    __tablename__ = "pdb_message"
 
     id = Column(Integer, primary_key=True, autoincrement=True, index=True, unique=True)
 
-    user = Column(Integer, ForeignKey("ff_user.id"))
-    server_room = Column(Integer, ForeignKey("server_message_room.id"))
+    user = Column(Integer, ForeignKey("pdb_user.id"))
+    server_room = Column(Integer, ForeignKey("pdb_server_message_room.id"))
 
     content = Column(Text)
 

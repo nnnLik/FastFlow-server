@@ -5,7 +5,7 @@ from sqlalchemy import Column, String, Integer, Text, DateTime, Boolean
 
 
 class User(Base):
-    __tablename__ = "ff_user"
+    __tablename__ = "pdb_user"
 
     id = Column(Integer, primary_key=True, autoincrement=True, index=True, unique=True)
 

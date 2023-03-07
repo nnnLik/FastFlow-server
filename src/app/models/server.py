@@ -6,13 +6,13 @@ from sqlalchemy import Column, Integer, DateTime, ForeignKey, String
 
 
 class Server(Base):
-    __tablename__ = "server"
+    __tablename__ = "pdb_server"
 
     id = Column(Integer, primary_key=True, autoincrement=True, index=True, unique=True)
 
     server_name = Column(String(50), nullable=False)
 
-    created_by = Column(Integer, ForeignKey("ff_user.id"))
+    created_by = Column(Integer, ForeignKey("pdb_user.id"))
 
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now())

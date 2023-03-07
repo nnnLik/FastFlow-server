@@ -14,12 +14,12 @@ from sqlalchemy import (
 
 
 class ServerMembers(Base):
-    __tablename__ = "server_members"
+    __tablename__ = "pdb_server_members"
 
     id = Column(Integer, primary_key=True, autoincrement=True, index=True, unique=True)
 
-    server = Column(Integer, ForeignKey("server.id"))
-    user = Column(Integer, ForeignKey("ff_user.id"))
+    server = Column(Integer, ForeignKey("pdb_server.id"))
+    user = Column(Integer, ForeignKey("pdb_user.id"))
 
     joined_at = Column(DateTime(timezone=True), server_default=func.now())
     left_at = Column(DateTime(timezone=True), nullable=True, default=None)

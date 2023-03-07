@@ -11,11 +11,11 @@ from sqlalchemy import (
 
 
 class ServerMessageRoom(Base):
-    __tablename__ = "server_message_room"
+    __tablename__ = "pdb_server_message_room"
 
     id = Column(Integer, primary_key=True, autoincrement=True, index=True, unique=True)
 
-    server = Column(Integer, ForeignKey("server.id"))
+    server = Column(Integer, ForeignKey("pdb_server.id"))
 
     joined_at = Column(DateTime(timezone=True), server_default=func.now())
     left_at = Column(DateTime(timezone=True), nullable=True, default=None)

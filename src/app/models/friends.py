@@ -6,12 +6,12 @@ from sqlalchemy import Column, Integer, DateTime, ForeignKey
 
 
 class Friends(Base):
-    __tablename__ = "friends"
+    __tablename__ = "pdb_friends"
 
     id = Column(Integer, primary_key=True, autoincrement=True, index=True, unique=True)
 
-    user_id_1 = Column(Integer, ForeignKey("ff_user.id"))
-    user_id_2 = Column(Integer, ForeignKey("ff_user.id"))
+    user_id_1 = Column(Integer, ForeignKey("pdb_user.id"))
+    user_id_2 = Column(Integer, ForeignKey("pdb_user.id"))
 
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now())
