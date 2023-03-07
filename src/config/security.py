@@ -1,6 +1,10 @@
 from passlib.context import CryptContext
+from decouple import config
 
 pwd_cxt = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+JWT_SECRET = config("JWT_SECRET")
+JWT_ALGORITHM = config("JWT_ALGORITHM")
 
 
 class Hash:
