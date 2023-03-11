@@ -1,4 +1,3 @@
-from typing import Optional
 from src.app.api.auth.jwt_handler import decodeJWT
 
 from fastapi import Request, HTTPException
