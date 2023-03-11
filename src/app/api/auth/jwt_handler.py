@@ -8,9 +8,9 @@ async def token_response(token: str):
     return {"access token": token}
 
 
-async def signJWT(username: str):
+async def signJWT(email: str):
     payload = {
-        "userID": username,
+        "userEmail": email,
         "expiry": time.time() + 600,
     }
     token = jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
@@ -19,7 +19,9 @@ async def signJWT(username: str):
 
 def decodeJWT(token: str):
     try:
-        decode_token = jwt.decode(token, JWT_SECRET, algorithm=JWT_ALGORITHM)
-        return decode_token if decode_token["expiry"] >= time.time() else None
-    except Exception:
+        payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM], verify=True)
+        if payload["expiry"] < time.time():
+            return None
+        return payload
+    except jwt.InvalidTokenError:
         return {}
